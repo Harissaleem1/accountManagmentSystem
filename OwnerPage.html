@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <style>
+   <style>
         body{
             background: #724e4e;
         }
@@ -22,48 +22,125 @@
         }
         #input{
             margin-right:10px ;
+            height: 30px;
         }
         #addBtn{
             margin-left: 10px;
+            height: 30px;
         }
+        #income{
+            margin-left: 10px;
+            height: 30px;
+        }
+   #user{
+    height: 30px;
+   }
+  
+    
     </style>
 
-
 <h2 id="heading">Create New Company Account</h2>
-    <div id="container">
-        
-    <input type="text" name="" id="input" placeholder="Company Account"> 
-    <input type="text" id="cat" placeholder="Users">
-    <input type="text" placeholder="Company Report">
+<div id="container">
+    <input type="text" name="" id="input" placeholder="Company Account">
+    <input type="number" id="user" placeholder="Users">
+    <div id="reports">
+        <input type="number" name="" id="income" placeholder="Company Income">
+    </div>
     <button id="addBtn">+</button>
     <div id="toDo"></div>
 </div>
 
-
-
-   <script>
+<script>
     const inputVal = document.getElementById('input');
     const addbtn = document.getElementById("addBtn");
-    const Catagory = document.getElementById('cat');
+    const users = document.getElementById('user');
     const data = document.getElementById('toDo');
+    const income = document.getElementById('income');
 
-    
-    addbtn.addEventListener("click" , function(){
-        let list = document.createElement("li");
-        list.innerText = "You added a new Company  " + inputVal.value + " and its Catagory is " +Catagory.value
+     //add new data and store it
+     addbtn.addEventListener("click", function () {
+        const companyName = inputVal.value;
+        const userCount = users.value;
+        const monthlyIncome = income.value;
         
-        data.appendChild(list)
+        if (!companyName || !userCount || !monthlyIncome) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        const newItem = {
+            companyName: companyName,
+            users: userCount,
+            income: monthlyIncome
+        };
+        
+        // saving to localstorage
+        let savedData = JSON.parse(localStorage.getItem('companyData')) || [];
+        savedData.push(newItem);
+        localStorage.setItem('companyData', JSON.stringify(savedData));
+
+        createNewDiv(newItem);
+
         inputVal.value = "";
-        Catagory.value = "";
+        users.value = "";
+        income.value = "";
+    });
+
+    // creating new div
+    function createNewDiv(item) {
+        let newDiv = document.createElement("div");
+        newDiv.style.border = "1px solid #000";
+        newDiv.style.padding = "10px";
+        newDiv.style.margin = "5px";
+        newDiv.style.float = "left";  
+
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.style.marginRight = "10px";
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "Delete";
+        deleteBtn.style.marginLeft = "10px";
+
+        let content = document.createElement("span");
+        content.innerText = "New Company: " + item.companyName + " | Users: " + item.users + " | Monthly Income: " + item.income;
+
+        newDiv.appendChild(checkbox);
+        newDiv.appendChild(content);
+        newDiv.appendChild(deleteBtn);
+        data.appendChild(newDiv);
+
+        deleteBtn.addEventListener("click", function () {
+            if (checkbox.checked) {
+                data.removeChild(newDiv);  
+                removeFromStorage(item);   
+            } else {
+                alert("Please check the box to delete.");
+            }
+        });
+    }
+
+   
+
+    //laoding data from local storage
+
+    function loadData() {
+        const savedData = JSON.parse(localStorage.getItem('companyData')) || [];
+        savedData.forEach(item => {
+            createNewDiv(item);
+        });
+    }
+
+   
+
+    function removeFromStorage(itemToRemove) {
+        let savedData = JSON.parse(localStorage.getItem('companyData')) || [];
+        savedData = savedData.filter(item => item.companyName !== itemToRemove.companyName);
+        localStorage.setItem('companyData', JSON.stringify(savedData));
+    }
+    window.onload = loadData;
     
-        list.addEventListener("click", function (){
-            list.style.textDecoration = "font-size: 50px";
-        })
-        list.addEventListener("dblclick", function (){
-            data.removeChild(list)
-        })
-    })
-    </script>
+</script>
 
 </body>
 </html>
