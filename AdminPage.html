@@ -10,88 +10,137 @@
         body{
             background: #724e4e;
         }
-        #name{
-            height: 30px;
-            width: 150px;
-        }
-        #catogary{
-            height: 30px;
-            width: 150px;
-            margin-top: 10px;
-
-        }
-        #discription{
-            margin-top: 10px;
-            height: 30px;
-            width: 150px;
-        }
-        .main{
+        #container{
+            margin-top: 50px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            
+            justify-content: center;
         }
-        .Spassword{
-            display: flex;
- flex-direction: column;        }
+        #heading{
 
-            #addCompanyBtn{
-                margin-top: 10PX;
-                background-color: #a95050;
-            }
+            display: flex;
+            justify-content: center;
+        }
+        #input{
+            margin-right:10px ;
+            height: 30px;
+        }
+        #addBtn{
+            margin-left: 10px;
+            height: 30px;
+        }
+        #income{
+            margin-left: 10px;
+            height: 30px;
+        }
+   #user{
+    height: 30px;
+   }
+  
+    
     </style>
 
-<div class="main">
-    <div class="logIn">
-        <h1 class="logIn-content" style="color: aliceblue;">Add Companies</h1>
-        <input type="text" id="name"  placeholder="Company name" />
-        <div class="Spassword">
-            <input type="text" placeholder="category"  id="catogary"/>
-            <input type="number" placeholder="Salary"  id="discription"/>
-        </div>
-        <button class="logIn_button" id="addCompanyBtn">Add Company</button>
-    </div><br><br>
-    <div id="data">
-
+<h2 id="heading">Create New Company Account</h2>
+<div id="container">
+    <input type="text" name="" id="input" placeholder="Company Account">
+    <input type="number" id="user" placeholder="Users">
+    <div id="reports">
+        <input type="number" name="" id="income" placeholder="Company Income">
     </div>
+    <button id="addBtn">+</button>
+    <div id="toDo"></div>
 </div>
-    
 
-    <script>
-const nameInput = document.getElementById('name');
-const categoryInput = document.getElementById('catogary');
-const descriptionInput = document.getElementById('discription');
-const addCompanyBtn = document.getElementById('addCompanyBtn');
-const dat = document.getElementById('data')
+<script>
+    const inputVal = document.getElementById('input');
+    const addbtn = document.getElementById("addBtn");
+    const users = document.getElementById('user');
+    const data = document.getElementById('toDo');
+    const income = document.getElementById('income');
 
-addCompanyBtn.addEventListener('click', function () {
-    let companyName = nameInput.value;
-    let companyCategory = categoryInput.value;
-    let companyDescription = descriptionInput.value;
+     //add new data and store it
+     addbtn.addEventListener("click", function () {
+        const companyName = inputVal.value;
+        const userCount = users.value;
+        const monthlyIncome = income.value;
+        
+        if (!companyName || !userCount || !monthlyIncome) {
+            alert("Please fill in all fields.");
+            return;
+        }
 
-    if (companyName && companyCategory && companyDescription) {
-        const companyItem = document.createElement('div');
-        companyItem.classList.add('company-item');
-        companyItem.innerHTML = `
-                    <strong>Company Name:</strong> ${companyName}<br>
-                    <strong>Category:</strong> ${companyCategory}<br>
-                    <strong>Description:</strong> ${companyDescription}
-                `;
+        const newItem = {
+            companyName: companyName,
+            users: userCount,
+            income: monthlyIncome
+        };
+        
+        // saving to localstorage
+        let savedData = JSON.parse(localStorage.getItem('companyData')) || [];
+        savedData.push(newItem);
+        localStorage.setItem('companyData', JSON.stringify(savedData));
 
-        dat.appendChild(companyItem);
+        createNewDiv(newItem);
 
-        nameInput.value = '';
-        categoryInput.value = '';
-        descriptionInput.value = '';
+        inputVal.value = "";
+        users.value = "";
+        income.value = "";
+    });
 
-        alert('Company added successfully!');
-    } else {
-        alert('Please fill out all fields.');
+    // creating new div
+    function createNewDiv(item) {
+        let newDiv = document.createElement("div");
+        newDiv.style.border = "1px solid #000";
+        newDiv.style.padding = "10px";
+        newDiv.style.margin = "5px";
+        newDiv.style.float = "left";  
+
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.style.marginRight = "10px";
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "Delete";
+        deleteBtn.style.marginLeft = "10px";
+
+        let content = document.createElement("span");
+        content.innerText = "New Company: " + item.companyName + " | Users: " + item.users + " | Monthly Income: " + item.income;
+
+        newDiv.appendChild(checkbox);
+        newDiv.appendChild(content);
+        newDiv.appendChild(deleteBtn);
+        data.appendChild(newDiv);
+
+        deleteBtn.addEventListener("click", function () {
+            if (checkbox.checked) {
+                data.removeChild(newDiv);  
+                removeFromStorage(item);   
+            } else {
+                alert("Please check the box to delete.");
+            }
+        });
     }
-});
-        
-        
-    </script>
+
+   
+
+    //laoding data from local storage
+
+    function loadData() {
+        const savedData = JSON.parse(localStorage.getItem('companyData')) || [];
+        savedData.forEach(item => {
+            createNewDiv(item);
+        });
+    }
+
+   
+
+    function removeFromStorage(itemToRemove) {
+        let savedData = JSON.parse(localStorage.getItem('companyData')) || [];
+        savedData = savedData.filter(item => item.companyName !== itemToRemove.companyName);
+        localStorage.setItem('companyData', JSON.stringify(savedData));
+    }
+    window.onload = loadData;
+    
+</script>
 </body>
 
 </html>
