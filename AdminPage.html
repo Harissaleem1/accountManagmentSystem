@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body{
+            background: #724e4e;
+        }
+        #name{
+            height: 30px;
+            width: 150px;
+        }
+        #catogary{
+            height: 30px;
+            width: 150px;
+            margin-top: 10px;
+
+        }
+        #discription{
+            margin-top: 10px;
+            height: 30px;
+            width: 150px;
+        }
+        .main{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+        }
+        .Spassword{
+            display: flex;
+ flex-direction: column;        }
+
+            #addCompanyBtn{
+                margin-top: 10PX;
+                background-color: #a95050;
+            }
+    </style>
+
+<div class="main">
+    <div class="logIn">
+        <h1 class="logIn-content" style="color: aliceblue;">Add Companies</h1>
+        <input type="text" id="name"  placeholder="Company name" />
+        <div class="Spassword">
+            <input type="text" placeholder="category"  id="catogary"/>
+            <input type="number" placeholder="Salary"  id="discription"/>
+        </div>
+        <button class="logIn_button" id="addCompanyBtn">Add Company</button>
+    </div><br><br>
+    <div id="data">
+
+    </div>
+</div>
+    
+
+    <script>
+const nameInput = document.getElementById('name');
+const categoryInput = document.getElementById('catogary');
+const descriptionInput = document.getElementById('discription');
+const addCompanyBtn = document.getElementById('addCompanyBtn');
+const dat = document.getElementById('data')
+
+addCompanyBtn.addEventListener('click', function () {
+    let companyName = nameInput.value;
+    let companyCategory = categoryInput.value;
+    let companyDescription = descriptionInput.value;
+
+    if (companyName && companyCategory && companyDescription) {
+        const companyItem = document.createElement('div');
+        companyItem.classList.add('company-item');
+        companyItem.innerHTML = `
+                    <strong>Company Name:</strong> ${companyName}<br>
+                    <strong>Category:</strong> ${companyCategory}<br>
+                    <strong>Description:</strong> ${companyDescription}
+                `;
+
+        dat.appendChild(companyItem);
+
+        nameInput.value = '';
+        categoryInput.value = '';
+        descriptionInput.value = '';
+
+        alert('Company added successfully!');
+    } else {
+        alert('Please fill out all fields.');
+    }
+});
+        
+        
+    </script>
+</body>
+
+</html>

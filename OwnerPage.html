@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body{
+            background: #724e4e;
+        }
+        #container{
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+        }
+        #heading{
+
+            display: flex;
+            justify-content: center;
+        }
+        #input{
+            margin-right:10px ;
+        }
+        #addBtn{
+            margin-left: 10px;
+        }
+    </style>
+
+
+<h2 id="heading">Create New Company Account</h2>
+    <div id="container">
+        
+    <input type="text" name="" id="input" placeholder="Company Account"> 
+    <input type="text" id="cat" placeholder="Users">
+    <input type="text" placeholder="Company Report">
+    <button id="addBtn">+</button>
+    <div id="toDo"></div>
+</div>
+
+
+
+   <script>
+    const inputVal = document.getElementById('input');
+    const addbtn = document.getElementById("addBtn");
+    const Catagory = document.getElementById('cat');
+    const data = document.getElementById('toDo');
+
+    
+    addbtn.addEventListener("click" , function(){
+        let list = document.createElement("li");
+        list.innerText = "You added a new Company  " + inputVal.value + " and its Catagory is " +Catagory.value
+        
+        data.appendChild(list)
+        inputVal.value = "";
+        Catagory.value = "";
+    
+        list.addEventListener("click", function (){
+            list.style.textDecoration = "font-size: 50px";
+        })
+        list.addEventListener("dblclick", function (){
+            data.removeChild(list)
+        })
+    })
+    </script>
+
+</body>
+</html>

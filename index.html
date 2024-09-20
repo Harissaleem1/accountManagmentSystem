@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Managment System</title>
+</head>
+<body>
+    <style>
+ 
+
+ body {
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        background: #724e4e;
+        color: white;
+    }
+
+  
+
+    .form {
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+        width: 296px;
+        height: 343px;
+        margin-top: 13%;
+
+    }
+    .bttns{display: flex;
+    justify-content: center;
+justify-items: center;}
+
+#login{
+    width: 250px;
+    border-radius: 50px 50px 50px 50px;
+    margin-top: 20px;
+   height: 35px;
+    background-color: black;
+    color: white;
+}
+    #email {
+        margin-top: 30px;
+        width: 250px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+       border: 0px;
+        background-color:  #f6f6f6;
+
+    }
+
+    #password {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        width: 250px;
+        height: 30px;
+        background-color:  #f6f6f6;
+        border: 0px;
+    }
+
+    .emaildiv{
+        
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+    }
+
+    .loginp{
+      
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+
+<div class="form">
+    <form>
+        
+            <h2 class="loginp">Company Login</h2>
+            <div class="emaildiv">
+            <!-- <label for="email" >Email:</label> -->
+            <input placeholder="Email Address" type="email" class="email" id="email" name="email" required>
+        </div>
+
+        <!-- <label class="password" for="password">Password:</label> -->
+     <div class="passworddiv"> <input type="password" id="password" name="password"           placeholder="Password">
+     </div>
+    <div class="bttns">    <button class="btnsdiv" type="button" id="login">Login</button></div>
+
+    </form>
+</div>
+
+<script>
+    // function clickFunc (){
+
+    // let email = document.getElementById('email').value;
+    // let password = document.getElementById('password').value;
+    // if(email  && password ){
+    //     // alert ('successful');
+    //     window.location.href = 'https://www.facebook.com';}
+    //     else{ alert('please enter a valid value')}
+    // }
+
+    document.getElementById('login').addEventListener('click', function () {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+
+        if (email === 'harissaleem@gmail' | password === '12345') {
+            window.location.href = "copmanyUsers.html";
+            console.log(true);
+        } else {
+            alert('Please fill in both email and password.');
+        }
+    });
+    </script>
+
+
+
+
+
+</body>
+</html>

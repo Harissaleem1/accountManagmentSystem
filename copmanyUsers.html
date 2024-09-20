@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body{
+            background: #724e4e;
+            
+        }
+
+        .container{
+            display: flex;
+            justify-content: center;
+        }
+        #Owner{
+           margin-right: 10px;
+            height: 50px;
+            width: 100px;
+        }
+
+        #Admin{
+            margin-right: 10px;
+            margin-left: 10px;
+            height: 50px;
+            width: 100px;
+        }
+
+        #Viewer{
+            margin-left: 10px;
+            height: 50px;
+            width: 100px;
+        }
+        #heading{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+    <h1 id="heading">welcome to company</h1>
+<div class="container">
+    <button id="Owner" onclick="ownerFun()">Owner</button>
+    <button id="Admin" onclick="adminFun()">Admin </button>
+    <button id="Viewer" onclick="viwerFun()">Viewer</button>
+</div>
+    <script>
+
+       function ownerFun(){
+        let owner  = document.getElementById('Owner')
+        owner.addEventListener('click', function(){
+            window.location.href = "OwnerLogin.html"
+        })
+       };
+       
+
+        function adminFun(){
+            let admin = document.getElementById('Admin')
+            admin.addEventListener('click', function(){
+                window.location.href = "AdminLogin.html"
+            })
+
+        };
+
+      function viwerFun(){
+        let ve = document.getElementById('Viewer')
+        ve.addEventListener('click', function(){
+            window.location.href = "ViewerPage.html"
+        })
+      }
+
+    </script>
+</body>
+</html>
